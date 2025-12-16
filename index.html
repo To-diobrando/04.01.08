@@ -86,7 +86,7 @@
 <div class="screen active" id="screen1">
   <h1>For you 💗</h1>
   <p>Click when you're ready</p>
-  <button onclick="startCountdown()">Click to open</button>
+  <button id="openBtn">Click to open</button>
 </div>
 
 <!-- Screen 2 -->
@@ -128,17 +128,22 @@
 </div>
 
 <script>
+  // ===== BASIC SCREEN CONTROL =====
   const screens = document.querySelectorAll('.screen');
 
   function show(id) {
     screens.forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
+    const el = document.getElementById(id);
+    if (el) el.classList.add('active');
   }
 
+  // ===== CLICK TO OPEN (FIXED) =====
   function startCountdown() {
     show('screen2');
+
     let num = 3;
     const el = document.getElementById('count');
+
     const interval = setInterval(() => {
       num--;
       el.textContent = num;
@@ -149,6 +154,7 @@
     }, 1000);
   }
 
+  // ===== HEART GAME =====
   let collected = 0;
   const total = 10;
   let heartInterval;
@@ -166,13 +172,11 @@
     'I love you. All of you. Endlessly.'
   ];
 
-  const loveLetter = `I don’t even know where to start, because there are so many things I want to say to you.\n\nYou make my days softer, my nights calmer, and my heart feel at home. Loving you feels easy, natural, and right — like something my soul already knew how to do.\n\nNo matter where life takes us, I want you to remember this: you are deeply loved, chosen, and cherished. Always.\n\nHappy Birthday, my love. ❤️`;
-
   function startGame() {
     show('screen4');
     heartInterval = setInterval(() => {
       if (collected < total) spawnHeart(collected);
-    }, 900);
+    }, 1200);
   }
 
   function spawnHeart(i) {
@@ -180,7 +184,7 @@
     heart.className = 'heart';
     heart.textContent = '💗';
     heart.style.left = Math.random() * 90 + 'vw';
-    heart.style.animationDuration = (4 + Math.random() * 4) + 's';
+    heart.style.animationDuration = (6 + Math.random() * 4) + 's';
 
     heart.onclick = () => {
       alert(reasons[i]);
@@ -194,47 +198,48 @@
         setTimeout(() => {
           show('screen6');
           startRomanticSequence();
-        }, 2500);
+        }, 3000);
       }
     };
 
     document.body.appendChild(heart);
   }
 
+  // ===== ROMANTIC SEQUENCE =====
+  const loveLetter = `I don’t even know where to start, because there are so many things I want to say to you.
+
+You make my days softer, my nights calmer, and my heart feel at home. Loving you feels easy, natural, and right — like something my soul already knew how to do.
+
+No matter where life takes us, I want you to remember this: you are deeply loved, chosen, and cherished. Always.
+
+Happy Birthday, my love. ❤️`;
+
   function startRomanticSequence() {
     const romanticLine = document.getElementById('romanticLine');
     const toMyLove = document.getElementById('toMyLove');
     const letterEl = document.getElementById('letter');
 
-    romanticLine.style.animationDuration = '6s';
-    toMyLove.style.animationDuration = '6s';
-
-    setTimeout(() => {
-      romanticLine.style.opacity = 1;
-    }, 2000);
+    romanticLine.style.opacity = 1;
 
     setTimeout(() => {
       romanticLine.style.opacity = 0;
-    }, 9000);
+    }, 8000);
 
     setTimeout(() => {
       toMyLove.style.opacity = 1;
-    }, 12000);
+    }, 11000);
 
     setTimeout(() => {
       typeLetter(letterEl, loveLetter, 160);
-    }, 16000);
+    }, 15000);
 
-    setInterval(() => spawnHeart(Math.floor(Math.random()*10)), 2000);
-  }, 8000);
-
-    setInterval(() => spawnHeart(Math.floor(Math.random()*10)), 1400);
+    setInterval(() => spawnHeart(Math.floor(Math.random() * 10)), 2200);
   }
 
   function typeLetter(el, text, speed) {
     el.innerHTML = '';
-    const lines = text.split("
-");
+    const lines = text.split('
+');
     let lineIndex = 0;
 
     function typeLine() {
@@ -260,25 +265,14 @@
         if (charIndex >= lines[lineIndex].length) {
           clearInterval(typer);
           lineIndex++;
-          setTimeout(typeLine, 1200);
+          setTimeout(typeLine, 1500);
         }
       }, speed);
     }
 
     typeLine();
-  });
-      i++;
-      if (i >= text.length) {
-        clearInterval(typer);
-        setTimeout(() => {
-          document.getElementById('finalLove').style.opacity = 1;
-        }, 3000);
-        setTimeout(() => {
-          document.getElementById('finalLove').style.opacity = 0;
-        }, 9000);
-      }
-    }, speed);
   }
 </script>
 </body>
 </html>
+
