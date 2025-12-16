@@ -1,125 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Love ❤️</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For My Baby ❤️</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #d63384, #ffd1e3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      color: #fff;
+    }
 
-body {
-  height: 100vh;
-  background: linear-gradient(135deg, #ff9ebc, #fff0f5);
-  overflow: hidden;
-  color: white;
-}
+    .screen { display: none; text-align: center; padding: 20px; }
+    .active { display: block; }
 
-.screen {
-  display: none;
-  height: 100vh;
-  width: 100%;
-  text-align: center;
-  padding: 30px;
-}
+    button {
+      padding: 12px 28px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      background: #fff;
+      color: #ff4f8b;
+      margin-top: 25px;
+    }
 
-.active {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+    h1 { font-size: 2.4rem; margin-bottom: 15px; }
+    h2 { font-size: 1.6rem; }
 
-button {
-  padding: 12px 30px;
-  font-size: 1.1rem;
-  border-radius: 30px;
-  border: none;
-  cursor: pointer;
-  background: white;
-  color: #ff4f8b;
-  margin-top: 25px;
-}
+    .count { font-size: 5rem; animation: fade 1s infinite; }
+    @keyframes fade { 0% {opacity:1;} 50%{opacity:0.4;} 100%{opacity:1;} }
 
-button:hover {
-  transform: scale(1.05);
-}
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      font-size: 1.8rem;
+      cursor: pointer;
+      animation: float 6s linear forwards;
+    }
 
-h1 {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
-}
+    @keyframes float {
+      from { bottom: -50px; }
+      to { bottom: 110%; }
+    }
 
-/* Countdown */
-.count {
-  font-size: 5rem;
-  animation: pulse 1s infinite;
-}
+    .counter {
+      position: fixed;
+      top: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 1.2rem;
+    }
 
-@keyframes pulse {
-  0% {opacity:1;}
-  50% {opacity:0.4;}
-  100% {opacity:1;}
-}
+    /* Slow fade text */
+    .slow {
+      opacity: 0;
+      animation: slowFade 3.5s forwards;
+    }
 
-/* Hearts */
-.heart {
-  position: absolute;
-  font-size: 2rem;
-  cursor: pointer;
-  animation: floatUp linear forwards;
-}
+    @keyframes slowFade {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-@keyframes floatUp {
-  from { bottom: -50px; }
-  to { bottom: 110%; }
-}
-
-.counter {
-  position: fixed;
-  top: 20px;
-  width: 100%;
-  text-align: center;
-  font-size: 1.2rem;
-}
-
-/* Letter screen */
-#screen6 {
-  overflow-y: auto;
-}
-
-.fade {
-  animation: fadeOut 3s forwards;
-}
-
-@keyframes fadeOut {
-  to { opacity: 0; }
-}
-
-.final-love {
-  font-size: 2.8rem;
-  animation: glow 2s infinite;
-}
-
-@keyframes glow {
-  0% {opacity:0.6;}
-  50% {opacity:1;}
-  100% {opacity:0.6;}
-}
-</style>
+    /* Letter box */
+    .letter-box {
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 700px;
+      margin: 40px auto;
+    }
+  </style>
 </head>
-
 <body>
 
 <!-- Screen 1 -->
 <div class="screen active" id="screen1">
   <h1>For you 💗</h1>
-  <p>Click when you’re ready</p>
+  <p>Click when you're ready</p>
   <button onclick="startCountdown()">Click to open</button>
 </div>
 
@@ -148,140 +114,120 @@ h1 {
 </div>
 
 <!-- Screen 6 -->
-<div class="screen" id="screen6">
-  <h1 id="romanticLine" style="opacity:0;">Now that we played the game, let’s get romantic, shall we?</h1>
-  <h2 id="toMyLove" style="margin-top:40px; opacity:0;">To my love,</h2>
-  <p id="letter" style="margin-top:30px; font-size:1.1rem; line-height:1.8;"></p>
-</div>
+<div class="screen" id="screen6" style="height:100vh; overflow-y:auto; padding:40px;">
+  <h1 id="romanticLine" class="slow">Now that we played the game, let’s get romantic, shall we?</h1>
+  <h2 id="toMyLove" class="slow" style="animation-delay:4s; margin-top:40px;">To my love,</h2>
 
-<!-- Screen 7 -->
-<div class="screen" id="screen7">
-  <h1 class="final-love">I love you Armaan, Forever.</h1>
+  <div class="letter-box">
+    <p id="letter" style="font-size:1.1rem; line-height:1.8;"></p>
+  </div>
+
+  <h1 id="finalLove" style="opacity:0; margin-top:60px; transition:opacity 4s;">
+    I love you Armaan, Forever.
+  </h1>
 </div>
 
 <script>
-const screens = document.querySelectorAll(".screen");
+  const screens = document.querySelectorAll('.screen');
 
-function show(id) {
-  screens.forEach(s => s.classList.remove("active"));
-  document.getElementById(id).classList.add("active");
-}
+  function show(id) {
+    screens.forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
 
-/* Countdown */
-function startCountdown() {
-  show("screen2");
-  let num = 3;
-  const el = document.getElementById("count");
+  function startCountdown() {
+    show('screen2');
+    let num = 3;
+    const el = document.getElementById('count');
+    const interval = setInterval(() => {
+      num--;
+      el.textContent = num;
+      if (num === 0) {
+        clearInterval(interval);
+        show('screen3');
+      }
+    }, 1000);
+  }
 
-  const timer = setInterval(() => {
-    num--;
-    el.textContent = num;
-    if (num === 0) {
-      clearInterval(timer);
-      show("screen3");
-    }
-  }, 1000);
-}
+  let collected = 0;
+  const total = 10;
+  let heartInterval;
 
-/* Game */
-let collected = 0;
-const total = 10;
-let heartInterval;
+  const reasons = [
+    'I love how you make me feel safe even from miles away.',
+    'I love your smile, it fixes my mood instantly.',
+    'I love your voice — comforting, addictive, unfairly attractive.',
+    'I love how handsome you are without trying.',
+    'I love your eyes, and the way they soften when you smile.',
+    'I love the way you laugh, it’s my favourite sound ever.',
+    'I love how you remember even the smallest detail about me.',
+    'I love the way you speak, care, and reassure me.',
+    'I love how everything about you just fits perfectly together.',
+    'I love you. All of you. Endlessly.'
+  ];
 
-const reasons = [
-  "I love how you make me feel safe even from miles away.",
-  "I love your smile, it fixes my mood instantly.",
-  "I love your voice — comforting and addictive.",
-  "I love how effortlessly handsome you are.",
-  "I love your eyes when you smile.",
-  "I love your laugh, it’s my favorite sound.",
-  "I love how you remember the smallest details.",
-  "I love how you care and reassure me.",
-  "I love how everything about you feels right.",
-  "I love you. Completely. Endlessly."
-];
+  const loveLetter = `I don’t even know where to start, because there are so many things I want to say to you.\n\nYou make my days softer, my nights calmer, and my heart feel at home. Loving you feels easy, natural, and right — like something my soul already knew how to do.\n\nNo matter where life takes us, I want you to remember this: you are deeply loved, chosen, and cherished. Always.\n\nHappy Birthday, my love. ❤️`;
 
-function startGame() {
-  show("screen4");
-  heartInterval = setInterval(spawnHeart, 900);
-}
+  function startGame() {
+    show('screen4');
+    heartInterval = setInterval(() => {
+      if (collected < total) spawnHeart(collected);
+    }, 900);
+  }
 
-function spawnHeart() {
-  if (collected >= total) return;
+  function spawnHeart(i) {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.textContent = '💗';
+    heart.style.left = Math.random() * 90 + 'vw';
+    heart.style.animationDuration = (4 + Math.random() * 4) + 's';
 
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.textContent = "💗";
-  heart.style.left = Math.random() * 90 + "vw";
-  heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+    heart.onclick = () => {
+      alert(reasons[i]);
+      heart.remove();
+      collected++;
+      document.getElementById('counter').textContent = `Hearts collected: ${collected} / ${total}`;
 
-  heart.onclick = () => {
-    alert(reasons[collected]);
-    heart.remove();
-    collected++;
-    document.getElementById("counter").textContent =
-      `Hearts collected: ${collected} / ${total}`;
+      if (collected === total) {
+        clearInterval(heartInterval);
+        show('screen5');
+        setTimeout(() => {
+          show('screen6');
+          startRomanticSequence();
+        }, 2500);
+      }
+    };
 
-    if (collected === total) {
-      clearInterval(heartInterval);
-      show("screen5");
-      setTimeout(() => {
-        show("screen6");
-        romanticSequence();
-      }, 2500);
-    }
-  };
+    document.body.appendChild(heart);
+  }
 
-  document.body.appendChild(heart);
-}
+  function startRomanticSequence() {
+    const letterEl = document.getElementById('letter');
 
-/* Romantic sequence */
-const loveLetter = `I don’t even know where to start, because there are so many things I want to say.
+    setTimeout(() => {
+      typeLetter(letterEl, loveLetter, 90);
+    }, 8000);
 
-You make my days softer, my nights calmer, and my heart feel at home. Loving you feels easy, natural, and right.
+    setInterval(() => spawnHeart(Math.floor(Math.random()*10)), 1400);
+  }
 
-No matter where life takes us, remember this — you are deeply loved, chosen, and cherished.
-
-Forever yours.
-— 04/01/2026`;
-
-function romanticSequence() {
-  const line = document.getElementById("romanticLine");
-  const title = document.getElementById("toMyLove");
-  const letter = document.getElementById("letter");
-
-  line.style.opacity = 1;
-
-  setTimeout(() => {
-    line.classList.add("fade");
-    title.style.opacity = 1;
-  }, 4000);
-
-  setTimeout(() => {
-    typeLetter(letter, loveLetter);
-  }, 6500);
-
-  setTimeout(() => {
-    document.getElementById("screen6").classList.add("fade");
-  }, 18000);
-
-  setTimeout(() => {
-    show("screen7");
-  }, 21000);
-}
-
-function typeLetter(el, text) {
-  let i = 0;
-  const speed = 55;
-  const typer = setInterval(() => {
-    el.textContent += text.charAt(i);
-    el.scrollIntoView({ behavior: "smooth", block: "end" });
-    i++;
-    if (i >= text.length) clearInterval(typer);
-  }, speed);
-}
+  function typeLetter(el, text, speed) {
+    let i = 0;
+    const typer = setInterval(() => {
+      el.textContent += text.charAt(i);
+      el.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      i++;
+      if (i >= text.length) {
+        clearInterval(typer);
+        setTimeout(() => {
+          document.getElementById('finalLove').style.opacity = 1;
+        }, 3000);
+        setTimeout(() => {
+          document.getElementById('finalLove').style.opacity = 0;
+        }, 9000);
+      }
+    }, speed);
+  }
 </script>
-
 </body>
 </html>
-
