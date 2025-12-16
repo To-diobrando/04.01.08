@@ -14,7 +14,7 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      color: #fff;
+      color: #000;
     }
 
     .screen { display: none; text-align: center; padding: 20px; }
@@ -31,8 +31,8 @@
       margin-top: 25px;
     }
 
-    h1 { font-size: 2.4rem; margin-bottom: 15px; }
-    h2 { font-size: 1.6rem; }
+    h1 { font-size: 2.2rem; margin-bottom: 20px; color:#000; }
+    h2 { font-size: 1.4rem; color:#000; }
 
     .count { font-size: 5rem; animation: fade 1s infinite; }
     @keyframes fade { 0% {opacity:1;} 50%{opacity:0.4;} 100%{opacity:1;} }
@@ -71,12 +71,12 @@
 
     /* Letter box */
     .letter-box {
-      background: rgba(255,255,255,0.18);
-      backdrop-filter: blur(12px);
+      background: #ffffff;
       border-radius: 20px;
-      padding: 30px;
+      padding: 35px;
       max-width: 700px;
       margin: 40px auto;
+      color: #000;
     }
   </style>
 </head>
@@ -202,20 +202,71 @@
   }
 
   function startRomanticSequence() {
+    const romanticLine = document.getElementById('romanticLine');
+    const toMyLove = document.getElementById('toMyLove');
     const letterEl = document.getElementById('letter');
 
+    romanticLine.style.animationDuration = '6s';
+    toMyLove.style.animationDuration = '6s';
+
     setTimeout(() => {
-      typeLetter(letterEl, loveLetter, 90);
-    }, 8000);
+      romanticLine.style.opacity = 1;
+    }, 2000);
+
+    setTimeout(() => {
+      romanticLine.style.opacity = 0;
+    }, 9000);
+
+    setTimeout(() => {
+      toMyLove.style.opacity = 1;
+    }, 12000);
+
+    setTimeout(() => {
+      typeLetter(letterEl, loveLetter, 160);
+    }, 16000);
+
+    setInterval(() => spawnHeart(Math.floor(Math.random()*10)), 2000);
+  }, 8000);
 
     setInterval(() => spawnHeart(Math.floor(Math.random()*10)), 1400);
   }
 
   function typeLetter(el, text, speed) {
-    let i = 0;
-    const typer = setInterval(() => {
-      el.textContent += text.charAt(i);
-      el.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    el.innerHTML = '';
+    const lines = text.split("
+");
+    let lineIndex = 0;
+
+    function typeLine() {
+      if (lineIndex >= lines.length) {
+        setTimeout(() => {
+          document.getElementById('finalLove').style.opacity = 1;
+        }, 4000);
+        setTimeout(() => {
+          document.getElementById('finalLove').style.opacity = 0;
+        }, 12000);
+        return;
+      }
+
+      let charIndex = 0;
+      const lineEl = document.createElement('div');
+      lineEl.style.marginBottom = '18px';
+      el.appendChild(lineEl);
+
+      const typer = setInterval(() => {
+        lineEl.textContent += lines[lineIndex].charAt(charIndex);
+        el.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        charIndex++;
+        if (charIndex >= lines[lineIndex].length) {
+          clearInterval(typer);
+          lineIndex++;
+          setTimeout(typeLine, 1200);
+        }
+      }, speed);
+    }
+
+    typeLine();
+  });
       i++;
       if (i >= text.length) {
         clearInterval(typer);
